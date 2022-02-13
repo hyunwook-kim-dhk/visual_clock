@@ -13,4 +13,8 @@ function getCurrentTimeStr() {
     return timeStr;
 }
 
-document.getElementById("clock_txt").innerHTML = getCurrentTimeStr();
+function setCurrentTime() {
+    document.getElementById("clock_txt").innerHTML = getCurrentTimeStr();
+    let t = setTimeout(function(){ setCurrentTime() }, 1000);
+}
+setCurrentTime();
