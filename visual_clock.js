@@ -10,6 +10,7 @@ var current_status = STATUS.STOP
 var time_left = 0;
 var timer = null;
 
+var input_form = document.getElementById('input_form');
 var text_input = document.getElementById('time_input');
 var clock_txt = document.getElementById('clock_txt');
 var btn_dict = {
@@ -17,6 +18,9 @@ var btn_dict = {
     'stop': document.getElementById('btn_stop'),
 };
 
+input_form.addEventListener('submit', (e) => { e.preventDefault(); });
+input_form.addEventListener('submit', () => { setStatusRun(); });
+text_input.addEventListener('keyup', (e) => { if (e.keycode == 13) setStatusRun(); });
 btn_dict['start'].addEventListener('click', setStatusRun);
 btn_dict['stop'].addEventListener('click', setStatusStop);
 
@@ -24,7 +28,7 @@ btn_dict['stop'].addEventListener('click', setStatusStop);
 function decimalToTwoDigitedStr(decimal) {
     if (decimal >= 10)
         return decimal.toString();
-    return "0" + decimal.toString();
+    return '0' + decimal.toString();
 }
 
 function setStatusStop() {
@@ -60,7 +64,7 @@ function setStatusRun() {
 }
 
 function getCurrentTimeStr() {
-    return (decimalToTwoDigitedStr(parseInt(time_left / 60)) + ":" +
+    return (decimalToTwoDigitedStr(parseInt(time_left / 60)) + ':' +
             decimalToTwoDigitedStr(time_left % 60));
 }
 
