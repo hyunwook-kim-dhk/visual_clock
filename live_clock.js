@@ -15,6 +15,6 @@ function getCurrentTimeStr() {
 
 function setCurrentTime() {
     document.getElementById("clock_txt").innerHTML = getCurrentTimeStr();
-    let t = setTimeout(function(){ setCurrentTime() }, 1000);
+    let t = setInterval(function(){ setCurrentTime() }, 1000);
 }
 setCurrentTime();

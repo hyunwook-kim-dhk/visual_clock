@@ -13,22 +13,25 @@ var timer = null;
 var input_form = document.getElementById('input_form');
 var text_input = document.getElementById('time_input');
 var clock_txt = document.getElementById('clock_txt');
-var btn_dict = {
-    'start': document.getElementById('btn_start'),
-    'stop': document.getElementById('btn_stop'),
-};
+var main_btn = document.getElementById('btn_main');
 
 input_form.addEventListener('submit', (e) => { e.preventDefault(); });
 input_form.addEventListener('submit', () => { setStatusRun(); });
 text_input.addEventListener('keyup', (e) => { if (e.keycode == 13) setStatusRun(); });
-btn_dict['start'].addEventListener('click', setStatusRun);
-btn_dict['stop'].addEventListener('click', setStatusStop);
+btn_main.addEventListener('click', btnClickListener);
 
 // functions
 function decimalToTwoDigitedStr(decimal) {
     if (decimal >= 10)
         return decimal.toString();
     return '0' + decimal.toString();
+}
+
+function btnClickListener(e) {
+    if (current_status == STATUS.STOP)
+        setStatusRun();
+    else if (current_status == STATUS.RUN)
+        setStatusStop();
 }
 
 function setStatusStop() {
@@ -40,8 +43,7 @@ function setStatusStop() {
     time_left = 0;
     clock_txt.innerHTML = '00:00';
     text_input.disabled = false;
-    btn_dict['start'].disabled = false;
-    btn_dict['stop'].disabled = true;
+    main_btn.setAttribute('value', 'Start');
 }
 
 function setStatusRun() {
@@ -57,8 +59,7 @@ function setStatusRun() {
     current_status = STATUS.RUN;
     time_left = input_number;
     text_input.disabled = true;
-    btn_dict['start'].disabled = true;
-    btn_dict['stop'].disabled = false;
+    main_btn.setAttribute('value', 'Stop');
     startTimer();
     timer = setInterval(startTimer, 1000);
 }
